@@ -45,3 +45,17 @@ def update_product(
     db.refresh(db_product)
 
     return db_product
+
+# DELETE
+def delete_product(db: Session, product_id: int):
+    db_product = db.query(Product).filter(
+        Product.id == product_id
+    ).first()
+
+    if db_product is None:
+        return None
+
+    db.delete(db_product)
+    db.commit()
+
+    return db_product
