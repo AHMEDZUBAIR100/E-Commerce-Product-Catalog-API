@@ -18,3 +18,8 @@ def create_product(db: Session, product: ProductCreate):
     db.refresh(db_product)
 
     return db_product
+
+# READ
+def read_products(db: Session):
+    return db.query(Product).all()
+
