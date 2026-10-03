@@ -18,3 +18,14 @@ def get_db():
     finally:
         db.close()
 
+# CREATE
+@router.post(
+    "/products",
+    response_model=ProductResponse,
+    status_code=status.HTTP_201_CREATED
+)
+def create_product(
+    product: ProductCreate,
+    db: Session = Depends(get_db)
+):
+    return crud.create_product(db, product)
