@@ -67,3 +67,25 @@ def update_product(
 
     return updated_product
 
+
+# DELETE
+@router.delete(
+    "/products/{product_id}",
+    response_model=ProductResponse
+)
+def delete_product(
+    product_id: int,
+    db: Session = Depends(get_db)
+):
+    deleted_product = crud.delete_product(
+        db,
+        product_id
+    )
+
+    if deleted_product is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return deleted_product
